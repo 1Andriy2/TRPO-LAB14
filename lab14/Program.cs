@@ -5,23 +5,6 @@ using System.Linq;
 
 public class Program
 {
-    public static HashSet<int> PPrimeGraphAlgor(Dictionary<int, Dictionary<int, int>> graph, int start_pos)
-    {
-
-        var mstSet = new HashSet<int> { start_pos };
-
-        while (mstSet.Count < graph.Count)
-        {
-            //отримати ребра від набору MST до набору без MST 
-            var edges = mstSet.AsParallel().SelectMany(node => graph[node]).Where(edge => !mstSet.Contains(edge.Key));
-            // отримати мінімальне ребро 
-            var minEdge = edges.AsParallel().OrderBy(edge => edge.Value).First();
-            // додати мінімальне ребро до MST 
-            mstSet.Add(minEdge.Key);
-        }
-        return mstSet;
-    }
-    /*
     public static Dictionary<int,int> PPrimeGraphAlgor(Dictionary<int, Dictionary<int, int>> graph, int start_pos)
     {
 
@@ -37,11 +20,10 @@ public class Program
             mstSet.Add(minEdge.Key, minEdge.Value);
         }
         return mstSet;
-    }*/
+    }
 
     public static void Main()
     {
-        // визначення графа із ребрами та вагами 
         var graph = new Dictionary<int, Dictionary<int, int>>()
         {
             {1, new Dictionary<int, int>(){{2, 12}, {3, 11}, {4, 14}}},
